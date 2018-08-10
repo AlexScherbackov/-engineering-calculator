@@ -7,3 +7,130 @@
 @import "fonts";
 @import "vendor";
 @import "base";
+
+.random-calc{
+	max-width: 768px;
+	box-sizing: border-box;
+	margin: 50px auto;
+	padding: 20px;
+	background: $form-bg;
+	font-family: 'Oswald', sans-serif;
+	background-color: #eaeaea;
+    border: 1px solid #B5B6B6;
+    border-radius: 4px;
+    color: #6C6969;
+    font-size: 16px;
+    position: relative;
+    &__title{
+    	font-size: 30px;
+    	font-weight: 700;
+    	text-align: center;
+    	color: #7dbbdc;
+    	text-shadow: 2px 1px 0 #666e72;
+    	line-height: 1;
+    	margin: 0;
+    }
+    &__grid{
+    	display: grid;
+    	grid-template-columns: repeat(2, minmax(220px,1fr));
+    	grid-gap: 10px;
+    	margin-top: 20px;
+    }
+    &__wrapper{
+    	padding: 10px;
+    	border: 1px solid #B5B6B6;
+    	border-radius: 4px;
+    	display: flex;
+    	flex-direction: column;
+    	align-items: flex-start;
+    	&--ful-height{
+    		grid-row-start: 1;
+    		grid-row-end: 3;
+    		grid-column-start: 2;
+    	}
+    }
+    &__flex-row{
+    	display: flex;
+    	align-items: center;
+    	width: 100%;
+    }
+    &__flex-row--fxdc{
+    	flex-direction: column;
+    }
+    &__flex-row--aifs{
+    	align-items: flex-start;
+    }
+    &__control{
+    	width: 40px;
+    	height: 30px;
+    	display: block;
+    	padding: 5px;
+    	outline: none;
+    	font-size: 14px;
+    	&--full-w{
+    		width: 100%;
+    	}
+    	&--w150{
+    		width: 150px;
+    	}
+    	&--w180{
+    		width: 180px;
+    	}
+    	&--h-auto{
+    		height: auto;
+    	}
+    }
+    &__checkbox{
+		width: 15px;
+		height: 15px;
+    }
+    &__text{
+    	margin: 0;
+    }
+    &__result{
+    	background-color: $color-white;
+    	padding: 10px;
+    	width: 100%;
+    	text-align: center;
+    	color: $color-black;
+    }
+    &__btn{
+    	font-size: 20px;
+    	box-shadow: 4px 4px 7px #686868;
+    	cursor: pointer;
+    	border: none;
+    	padding: 4px 10px;
+    	margin: 0 auto;
+    	width: 180px;
+    	&--submit{
+			background: $submit-bg;
+			color: $submit-text-cl;
+    	}
+    }
+}
+
+.mt-5{
+	margin-top: 5px;
+}
+.mt-10{
+	margin-top: 10px;
+}
+
+.mb-10{
+	margin-bottom: 10px;
+}
+.mb-5{
+	margin-bottom: 5px;
+}
+
+.mr-10{
+	margin-right: 10px;
+}
+
+.on-error{
+	border: 1px solid red;
+}
+
+.no-visible{
+	display: none;
+}

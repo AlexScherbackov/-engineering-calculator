@@ -4,3 +4,72 @@ append vars
 	- html.classList.push('page-index')
 
 block content
+
+	div.random-calc
+
+		div.random-calc__header
+
+			h3.random-calc__title="Генератор случайных чисел"
+
+		form.random-calc__form#calculation-random
+
+			div.random-calc__grid
+
+				div.random-calc__wrapper
+
+					label.random-calc__flex-row(for="number_of_results")
+						span.random-calc__control-text.mr-10.js-target="Количество генерируемых чисел:"
+						input.random-calc__control(type="text" name="number_of_results" value="1")
+
+					div.random-calc__flex-row.mt-10
+
+						label.random-calc__flex-row.mr-10(for="calc_type")
+							span.random-calc__control-text.mr-10.js-target="Из диапазона:"
+							input.random-calc__control.random-calc__checkbox(type="radio" checked  name="calc_type" id='range')
+
+						label.random-calc__flex-row(for="calc_type")
+							span.random-calc__control-text.mr-10.js-target="Из списка:"
+							input.random-calc__control.random-calc__checkbox(type="radio" name="calc_type" id='list')
+					
+					label.random-calc__flex-row.mt-10(for="without_repeat")
+						span.random-calc__control-text.mr-10.js-target="Без повторов:"
+						input.random-calc__control.random-calc__checkbox(type="checkbox" checked name="without_repeat")
+
+					label.random-calc__flex-row.mt-10(for="order")
+						span.random-calc__control-text.mr-10.js-target="Упорядочить:"
+						select.random-calc__control.random-calc__control--w180(name="order")
+							option(value="1")="в случайном порядке"
+							option(value="2")="по возрастанию"
+							option(value="3")="по убыванию"
+
+					label.random-calc__flex-row.mt-10(for="delimiter")
+						span.random-calc__control-text.mr-10.js-target="Разделитель чисел:"
+						input.random-calc__control(type="text" name="delimiter" value=" ")
+					span.random-calc__control-text.mr-10.js-target="*пробел или ';' или ',' или '-' "
+
+				div.random-calc__wrapper.random-calc__wrapper--ful-height
+					p.random-calc__text="Результат:"
+					div#calculation-result.random-calc__result.mt-10.mb-10="По умолчанию пуст"
+					button.random-calc__btn.random-calc__btn--submit(type="submit" )="Сгенерировать"
+				div
+
+					div.random-calc__wrapper#from-range
+
+						label.random-calc__flex-row.random-calc__flex-row--fxdc.random-calc__flex-row--aifs(for="min_level")
+							span.random-calc__control-text.mr-10.js-target="Нижняя граница диапазона значений:"
+							input.random-calc__control.random-calc__control--w150.mt-5(type="text" value="1" name="min_level")
+
+						label.random-calc__flex-row.random-calc__flex-row--fxdc.random-calc__flex-row--aifs.mt-10(for="max_level")
+							span.random-calc__control-text.mr-10.js-target="Верхняя граница диапазона значений:"
+							input.random-calc__control.random-calc__control--w150.mt-5(type="text" value="100" name="max_level")
+						label.random-calc__flex-row.random-calc__flex-row--fxdc.random-calc__flex-row--aifs.mt-10(for="exclude_values")
+							p.random-calc__text.mb-5.js-target="Исключить числа:"
+							textarea.random-calc__control.random-calc__control--full-w.random-calc__control--h-auto(type="text" rows="2" name="exclude_values" placeholder='Числа через пробел')
+
+					div.random-calc__wrapper.mt-10.no-visible#from-list
+						p.random-calc__text.mb-5.js-target="Введите список значений через пробел:"
+						textarea.random-calc__control.random-calc__control--full-w.random-calc__control--h-auto(type="text" rows="2" name="value_list")
+				
+					
+				
+

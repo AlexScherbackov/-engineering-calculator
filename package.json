@@ -59,5 +59,13 @@
   },
   "directories": {
     "doc": "docs"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexScherbackov/gulpForMultiplePageWebsite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlexScherbackov/gulpForMultiplePageWebsite/issues"
+  },
+  "homepage": "https://github.com/AlexScherbackov/gulpForMultiplePageWebsite#readme"
 }
