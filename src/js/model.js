@@ -1,30 +1,28 @@
 //Kласс для работы с входными данными
-//
 
-class Model {
+class Model extends eventEmitter{
 
-	constructor (selector) {
-		this.elem = document.querySelector(selector);
-		this.data = {};
+	constructor (namesArray) {
+		super();
+		this._data = {};
+		namesArray.forEach((item)=>{
+			this.getData(item);
+		});
 	}
+
+	get data(){
+		return this._data;
+	}
+
+	//Метод получения данных и формирования первичной модели объекта
 	getData (nameObject) {
-		const elem = this.elem.querySelector(`[name=${nameObject.name}]`);
-		
-		if(nameObject.hasOwnProperty('type') && nameObject['type']=='select'){
-			this.formData({'name': nameObject.name, 'value' : elem.value});
-		}
-
-		if(nameObject.hasOwnProperty('type')&& nameObject['type']=='checkbox'){
-			this.formData({'name': nameObject.name, 'value' : nameObject.value});
-		}
-
-		if(nameObject.hasOwnProperty('check')){
-			if(nameObject.check(elem.value)){
-				this.formData({'name': nameObject.name, 'value' : elem.value});
-			}
+		//наличие имени свидетельствует о том что это изменяемое пользовательем значение, требующее наблюдения
+		if(nameObject.hasOwnProperty('name')){
+			this.formData(nameObject);
 		} else{
+			//для вложенных элементов
 			Object.keys(nameObject).forEach((item)=>{
-				if(item != 'name' && item != 'check' && item != 'onChange' && item != 'type' && item != 'value'){
+				if(item != 'name' && item != 'check' && item != 'default' && item != 'type' && item != 'value'){
 					this.getData(nameObject[item]);
 				}
 			})
@@ -32,47 +30,129 @@ class Model {
 
 	}
 
+	//Метод формирующий конкретную структуру данных
 	formData (data) {
+		this._data[data.name] = {};
 
-		this.data[data.name] = data.value;
-		
-		//Внутрення переменная дескриптора
-		let internalValue = this.data[data.name];
+		Object.keys(data).forEach((item)=>{
 
-		// С каждым свойством будет связан собственный
-    	// экземпляр класса Dep
-   		const dep = new Dep();
+			if(item != 'name'){
+				this._data[data.name][item] = data[item];
+			}
+		});
 
-   		//Добавляем свойству дескриптор(геттер и сеттер)
-		Object.defineProperty(this.data, data.name, {
-			get() {
-            	dep.depend(); // запоминаем выполняемую функцию target
-            	return internalValue;
-        	},
-        	set(newVal) {
-        		internalValue = newVal;
-            	dep.notify(); // повторно выполняем сохранённые функции
-        	}
-    	});
-		
 	}
 
-	bindEvent(nameObject){
+	//Метод возвращающий элемент данных с определённым именем из общего объекта 
+	getItem(name){
+		return this._data[name];
+	}
 
-		const elem = this.elem.querySelector(`[name=${nameObject.name}]`);
+	//Метод возвращающий элемент данных с определённым типом из общего объекта 
+	getType(type){
+		const items = [];
 
-		if(nameObject.hasOwnProperty('onChange')||(nameObject.hasOwnProperty('type')&&nameObject['settings'])){
-			elem.addEventListener('change', watcher.bind(nameObject));
+		Object.keys(this._data).forEach((item)=>{
+			if(this._data[item].hasOwnProperty('type')&&(this._data[item]['type'] == type)){
+				items.push(item);
+			}
+		});
+
+		return items;
+	}
+
+	//Метод обновляющий элемент данных
+	updateData(name, data){
+		
+		const item = this.getItem(name);
+		
+ 		if(item.hasOwnProperty('check')&&!item.check(data)){
+ 			this.emmit('error', {name, item, data});
+ 			return false;
+ 		}
+ 		
+ 		item.value = data;
+		switch (item.type){
+			case ('flag' || 'settings'):
+				this.updateSettings(name);
+				break;
+			case ('settings'):
+				this.updateFlags(name);
+				break;
+		
+		}
+		
+		//this.emmit('change', this._data);
+	
+		return item;
+	}
+	
+	updateSettings(name){
+		const item = this.getItem(name);
+		const itemValue = item.regexp.split('');
+		const target = this._data['valid_characters'];
+		const targetValue = target.value.split('');
+		let result = '';
+		
+		if(item.value){
+			result = targetValue;
+			itemValue.forEach(item=>{
+				if(targetValue.indexOf(item) == -1){
+					result.splice(this._start++, 0, item);
+				}
+			});
+
+			result = result.join('');
+		} else{
+			itemValue.forEach(item=>{
+				if(targetValue.indexOf(item) != -1){
+					this._start = targetValue.indexOf(item);
+					targetValue.splice(targetValue.indexOf(item), 1);
+				}
+			});
+
+			result = targetValue.join('');
 		}
 
-		Object.keys(nameObject).forEach((item)=>{
-			const toString = {}.toString;
-					
-			if(toString.call(nameObject[item]) == '[object Object]'){
-				const sub = this.elem.querySelector(`[name=${nameObject[item].name}]`);
-				sub.addEventListener('change', watcher.bind(nameObject[item]));
+		target.value = result;
+	}
+
+	updateFlags(name){
+		const item = this.getItem(name);
+		const flags = this.getType('flag');
+		const itemValue = item.value.split('');
+
+		flags.forEach(item=>{
+			let flag = this.getItem(item);
+			
+			let trigger = flag.regexp.split('').some(item =>{
+				if(itemValue.indexOf(item) != -1){
+					return true;
+				}
+				return false;
+			})
+			
+			if(trigger){
+				flag.value = true;
+			} else{
+				flag.value = false;
 			}
 		})
 
+
 	}
+
+	//Возвращает асоциативный массив имя-тип
+	getNames(){
+		const namesArr = [];
+
+		Object.keys(this._data).forEach((item)=>{
+			namesArr.push({[item]: this._data[item]['type']})
+			
+		})
+		return namesArr;
+	}
+
 }
+
+

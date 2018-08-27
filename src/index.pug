@@ -2,74 +2,75 @@ extends pug/base
 
 append vars
 	- html.classList.push('page-index')
-
+	- radiusArr = ['мм', 'см', 'дм', 'м']
+	- areaArr = ['кв.мм', 'кв.см', 'кв.дм', 'кв.м']
 block content
-
-	div.random-calc
-
-		div.random-calc__header
-
-			h3.random-calc__title="Генератор случайных чисел"
-
-		form.random-calc__form#calculation-random
-
-			div.random-calc__grid
-
-				div.random-calc__wrapper
-
-					label.random-calc__flex-row(for="number_of_results")
-						span.random-calc__control-text.mr-10.js-target="Количество генерируемых чисел:"
-						input.random-calc__control(type="text" name="number_of_results" value="1")
-
-					div.random-calc__flex-row.mt-10
-
-						label.random-calc__flex-row.mr-10(for="calc_type")
-							span.random-calc__control-text.mr-10.js-target="Из диапазона:"
-							input.random-calc__control.random-calc__checkbox(type="radio" checked  name="calc_type" id='range')
-
-						label.random-calc__flex-row(for="calc_type")
-							span.random-calc__control-text.mr-10.js-target="Из списка:"
-							input.random-calc__control.random-calc__checkbox(type="radio" name="calc_type" id='list')
-					
-					label.random-calc__flex-row.mt-10(for="without_repeat")
-						span.random-calc__control-text.mr-10.js-target="Без повторов:"
-						input.random-calc__control.random-calc__checkbox(type="checkbox" checked name="without_repeat")
-
-					label.random-calc__flex-row.mt-10(for="order")
-						span.random-calc__control-text.mr-10.js-target="Упорядочить:"
-						select.random-calc__control.random-calc__control--w180(name="order")
-							option(value="1")="в случайном порядке"
-							option(value="2")="по возрастанию"
-							option(value="3")="по убыванию"
-
-					label.random-calc__flex-row.mt-10(for="delimiter")
-						span.random-calc__control-text.mr-10.js-target="Разделитель чисел:"
-						input.random-calc__control(type="text" name="delimiter" value=" ")
-					span.random-calc__control-text.mr-10.js-target="*пробел или ';' или ',' или '-' "
-
-				div.random-calc__wrapper.random-calc__wrapper--ful-height
-					p.random-calc__text="Результат:"
-					div#calculation-result.random-calc__result.mt-10.mb-10="По умолчанию пуст"
-					button.random-calc__btn.random-calc__btn--submit(type="submit" )="Сгенерировать"
+	
+	div.calcsoft-form.calcsoft
+		h2.calcsoft-form__title.calcsoft__title="Калькулятор объёма цилиндра"
+		form.calcsoft-form__main.mt-20#cylinder-capacity
+			div.calcsoft__wrapp.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-2-1fr
 				div
+					p.calcsoft__text.calcsoft__text--shadow.calcsoft__text--tac='Вычислять объём через'
+					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-10px-1fr.mt-10
+						input(type='radio' name='calc-type' data-type='radius-height') 
+						span.calcsoft__text='Радиус основания и высота'
+						input(type='radio' name='calc-type' data-type='diametr-height') 
+						span.calcsoft__text='Диаметр основания и высота'
+						input(type='radio' name='calc-type' data-type='area-height') 
+						span.calcsoft__text='Площадь основания и высота'
+					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10.no-visible.calc-type(name='radius-height')
+						span.calcsoft__text='Радиус r:'
+						input(type='text' name='radius') 
+						select.calcsoft__select(name='radius-units')
+							- var i = 1
+							each item in radiusArr
+								option(value = i++)=item
 
-					div.random-calc__wrapper#from-range
+						
+					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10.no-visible.calc-type(name='diametr-height')
+						span.calcsoft__text='Диаметр d:'
+						input(type='text' name='diametr') 
+						select.calcsoft__select(name='diametr-units')
+							- var i = 1
+							each item in radiusArr
+								option(value = i++)=item
+						
+					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10.no-visible.calc-type(name='area-height')
+						span.calcsoft__text='Площадь S:'
+						input(type='text' name='area') 
+						select.calcsoft__select(name='area-units')
+							- var i = 1
+							each item in areaArr
+								option(value = i++)=item
 
-						label.random-calc__flex-row.random-calc__flex-row--fxdc.random-calc__flex-row--aifs(for="min_level")
-							span.random-calc__control-text.mr-10.js-target="Нижняя граница диапазона значений:"
-							input.random-calc__control.random-calc__control--w150.mt-5(type="text" value="1" name="min_level")
+						
+					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10
+						span.calcsoft__text='Высота h:'
+						input(type='text' name='height') 
+						select.calcsoft__select(name='height-units')
+							- var i = 1
+							each item in radiusArr
+								option(value = i++)=item
 
-						label.random-calc__flex-row.random-calc__flex-row--fxdc.random-calc__flex-row--aifs.mt-10(for="max_level")
-							span.random-calc__control-text.mr-10.js-target="Верхняя граница диапазона значений:"
-							input.random-calc__control.random-calc__control--w150.mt-5(type="text" value="100" name="max_level")
-						label.random-calc__flex-row.random-calc__flex-row--fxdc.random-calc__flex-row--aifs.mt-10(for="exclude_values")
-							p.random-calc__text.mb-5.js-target="Исключить числа:"
-							textarea.random-calc__control.random-calc__control--full-w.random-calc__control--h-auto(type="text" rows="2" name="exclude_values" placeholder='Числа через пробел')
+					p.calcsoft__text.mt-10
+						span='Округлить результат до '
+						input.calcsoft-form__select(name='round_of')
+						span=' знаков после запятой'
+					div.flex-row
+						input.calcsoft-form__btn.mt-10(type='submit' value='Рассчитать')
 
-					div.random-calc__wrapper.mt-10.no-visible#from-list
-						p.random-calc__text.mb-5.js-target="Введите список значений через пробел:"
-						textarea.random-calc__control.random-calc__control--full-w.random-calc__control--h-auto(type="text" rows="2" name="value_list")
-				
+				div.calcsoft__flex-row.calcsoft__flex-row--fxdc#calculation-result
+					p.calcsoft__text.calcsoft__text--shadow.calcsoft__text--tac='Результат вычислений'
+					p.calcsoft__text.mt-10.formula=''
+					div.calcsoft__svg-cont
+						svg#cilinder
+							ellipse(cy='20%' cx='50%' rx='50' ry='10' fill="transparent" stroke="rgb(0,0,0)" stroke-width='2')
+							line(x1='33%' y1='20%' x2='33%' y2='81%' stroke="rgb(0,0,0)" stroke-width='2')
+							line(x1='50%' y1='20%' x2='50%' y2='81%' stroke-width="5" style='stroke-dasharray:10 5; stroke: rgba(0, 0, 0, .5); stroke-width: 2')
+							line.decor.no-visible(x1='50%' y1='81%' x2='67%' y2='81%' stroke-width="5" style='stroke-dasharray:10 5; stroke: rgba(0, 0, 0, .5); stroke-width: 2')
+							line.decor.no-visible(x1='34%' y1='81%' x2='66%' y2='81%' stroke-width="5" style='stroke-dasharray:10 5; stroke: rgba(0, 0, 0, .5); stroke-width: 2')
+							line(x1='67%' y1='20%' x2='67%' y2='81%' stroke="rgb(0,0,0)" stroke-width='2')
+							ellipse#area(cy='81%' cx='50%' rx='50' ry='10' fill="transparent" stroke="rgb(0,0,0)" stroke-width='2')
+					p.calcsoft__text.mt-10.volume
 					
-				
-

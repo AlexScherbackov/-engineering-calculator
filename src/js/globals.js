@@ -1,117 +1,152 @@
 /* eslint-disable no-unused-vars */
 
-let $window = $(window);
-let $document = $(document);
-let $html = $(document.documentElement);
-let $body = $(document.body);
-
+let $window = window;
+let $document = document;
+let $html = document.documentElement;
+let $body = document.body;
 
 const NAME_STACK = [
 		{
-			name: "number_of_results",
-			text: "Количество генерируемых чисел:",
-			minLevel: 1,
-			maxLevel: 50,
-			check: function (value) {
-				if((value >= this.minLevel)&&(value<=this.maxLevel)){
-					return true;
+			name: 'calc-type',
+			type: 'radio',
+			default: 0,
+			value: 0,
+			changeForm: function(data){
+				const resultsBlock = document.querySelectorAll('.calc-type'); 
+				const decor = document.querySelectorAll('.decor'); 
+
+				resultsBlock.forEach(item=>{
+					if(!item.classList.contains('no-visible')){
+						item.classList.add('no-visible');
+					}
+				});
+
+				decor.forEach(item =>{
+					if(!item.classList.contains('no-visible')){
+						item.classList.add('no-visible');
+					}
+				})
+
+				if(data == 2){
+					document.querySelector('#area').style.fill= 'red';
 				} else{
-					return false;
+					decor[data].classList.remove('no-visible');
+					document.querySelector('#area').style.fill= 'transparent';
 				}
+
+				resultsBlock[data].classList.remove('no-visible');
 			},
-			onChange: changeControl
-		},
-		{
-			
-			minLevel: {
-				name: "min_level",
-				text: "Нижняя граница диапазона значений:",
-				minLevel: 1,
-				maxLevel: 1000000000,
-				check: function(value){
-					if((value<=this.maxLevel)&&(value>=this.minLevel)){
-						return true;
-					} else {
-						return false;
-					}
-				},
-				onChange: changeRange
-			},
-			maxLevel:{
-				name: "max_level",
-				text: "Верхняя граница диапазона значений:",
-				minLevel: 1,
-				maxLevel: 1000000000,
-				check: function(value){
-					if((value<=this.maxLevel)&&(value>=this.minLevel)){
-						return true;
-					} else {
-						return false;
-					}
-				},
-				onChange: changeRange
-			},
-			exclude: {
-				name: "exclude_values",
-				text: "Исключить числа:",
-				check: function(value){
-					if(Array.isArray(value)){
-						let flag = true;
-						value.forEach((item)=>{
-							if(!isNaN(parseFloat(item)) && isFinite(item)){
-								flag = false;
-							}
-						});
-						return flag;
-					} else{
-						return false;
-					}
-				},
-				onChange: changeControl
-			} 
-		},
-		{
-			list: {
-				name: "value_list",
-				check: function(value){
-					if(Array.isArray(value)){
-						let flag = true;
-						value.forEach((item)=>{
-							if(!isNaN(parseFloat(item)) && isFinite(item)){
-								flag = false;
-							}
-						});
-						return flag;
-					} else {
-						return false;
-					}
-				},
-				onChange: changeControl
+			pastFormula: function(data){
+				const elem = document.querySelector('#calculation-result');
+				const formulaElem = elem.querySelector('.formula');
+				let formula;
+				
+				switch(data){
+					case 0:
+						formula = 'V=π·r²·h';
+						break;
+					case 1:
+						formula = 'V=π·h·D²/4';
+						break;
+					case 2:
+						formula = 'V=S·h';
+						break;
+				}
+				formulaElem.textContent = `Формула рассчёта: ${formula}`
 			}
 		},
 		{
-			name: "without_repeat",
+			name: 'radius',
 			type: 'settings',
-			onChange: changeCalculationRepeat,
-		},
-		{
-			name: "order",
-			onChange: changeCalculationOrder,
-		},
-		{
-			name: "delimiter",
-			text: "Разделитель чисел:",
-			allowableRange: [" ", ",", ";", "-"],
-			check: function (value) {
-				if(this.allowableRange.indexOf(value)!=-1) {
+			minLevel: 0.000001,
+			maxLevel: 999999.999999,
+			value: '',
+			check: function(data){
+				if((data >=this.minLevel)&&(data<=this.maxLevel)){
 					return true;
-				} else {
-					return false;
 				}
-			},
-			onChange: changeCalculationDelimiter,
-
-		}		
+				return false;
+			}
+		},
+		{
+			name: 'radius-units',
+			type: 'select',
+			default: 1,
+			value: 1
+		},
+		{
+			name: 'height',
+			type: 'settings',
+			minLevel: 0.000001,
+			maxLevel: 999999.999999,
+			value: '',
+			check: function(data){
+				if((data >=this.minLevel)&&(data<=this.maxLevel)){
+					return true;
+				}
+				return false;
+			}
+		},
+		{
+			name: 'height-units',
+			type: 'select',
+			default: 1,
+			value: 1
+		},
+		{
+			name: 'diametr',
+			type: 'settings',
+			minLevel: 0.000001,
+			maxLevel: 999999.999999,
+			value: '',
+			check: function(data){
+				if((data >=this.minLevel)&&(data<=this.maxLevel)){
+					return true;
+				}
+				return false;
+			}
+		},
+		{
+			name: 'diametr-units',
+			type: 'select',
+			default: 1,
+			value: 1
+		},
+		{
+			name: 'area',
+			type: 'settings',
+			minLevel: 0.000001,
+			maxLevel: 999999.999999,
+			value: '',
+			check: function(data){
+				if((data >=this.minLevel)&&(data<=this.maxLevel)){
+					return true;
+				}
+				return false;
+			}
+		},
+		{
+			name: 'area-units',
+			type: 'select',
+			default: 1,
+			value: 1
+		},
+		{
+			name: 'round_of',
+			type: 'settings',
+			minLevel: 0,
+			maxLevel: 9,
+			default: 3,
+			value: 3,
+			check: function(data){
+				if((data >=this.minLevel)&&(data<=this.maxLevel)){
+					return true;
+				}
+				return false;
+			}
+		}
 	];
 
-console.log(NAME_STACK);
+
+
+
