@@ -1,3 +1,9 @@
+//Для реализации каждого конкретного калькулятора мы создаём подкласс для базовых классов. 
+//Это позволяет нам расширять функционал приложения бережно относясь к ресурсам браузера 
+//и нервам програмистов, которые поддерживают этот код
+//
+//Субкласс модели реализует методы специфичные для Калькулятора объёма цилиндра, 
+//наследуя от родителя общие методы по работе с данными
 class modelCilender extends Model{
 	constructor (namesArray) {
 		super(namesArray);
@@ -42,10 +48,21 @@ class modelCilender extends Model{
 		const si = Math.pow(10,(aUnits - bUnits));
 		return number*si;
 	}
+
+	formatToSICub (number, aUnits, bUnits) {
+		const si = Math.pow(1000,(aUnits - bUnits));
+		return number*si;
+	}
 	
 	//Переводит результат в новые единицы измерения
 	changeResultUnits(index){
-		this.volume.value = this.formatToSI(+this.volume.value, this.volume.units, index+1);
+		let ind;
+		if(index === 4){
+			ind = 2;
+		} else{
+			ind = index;
+		}
+		this.volume.value = this.formatToSICub(+this.volume.value, this.volume.units, ind+1);
 		this.volume.units = index+1;
 	}
 }

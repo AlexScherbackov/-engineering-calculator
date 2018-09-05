@@ -52,7 +52,7 @@ const NAME_STACK = [
 						formula = 'V=S·h';
 						break;
 				}
-				formulaElem.textContent = `Формула рассчёта: ${formula}`
+				formulaElem.textContent = `Формула расчёта: ${formula}`
 			}
 		},
 		{

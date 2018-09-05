@@ -1,3 +1,9 @@
+//Для реализации каждого конкретного калькулятора мы создаём подкласс для базовых классов. 
+//Это позволяет нам расширять функционал приложения бережно относясь к ресурсам браузера 
+//и нервам програмистов, которые поддерживают этот код
+//
+//Сабкласс представления реализует методы обработки ошибок и отображения результатов
+//характерные для калькулятора объёма цилиндра
 class viewerCilender extends Viewer{
 	constructor(id, result, namesArray){
 		super(id, result, namesArray);
@@ -82,9 +88,7 @@ class viewerCilender extends Viewer{
 	//Перехват события изменения единиц измерения
 	handleResultUnits(e){
 		let index = e.target.selectedIndex;
-		if(index === 4){
-			index = 2;
-		}
+		
 		this.emmit('changeResultUnits', index)
 	}
 }
