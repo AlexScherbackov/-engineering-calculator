@@ -1,16 +1,15 @@
 // @include('globals.js')
 // @include('functions.js')
-// @include('eventEmmiter.js')
-// @include('model.js')
-// @include('modelCilender.js')
-// @include('controller.js')
-// @include('viewer.js')
-// @include('viewerCilender.js')
-// @include('controlCilender.js')
-
+// @include('globalClasses/eventEmmiter.js')
+// @include('globalClasses/model.js')
+// @include('globalClasses/controller.js')
+// @include('globalClasses/viewer.js')
+// @include('subClasses/matematicViewer.js')
+// @include('subClasses/matematicModel.js')
+// @include('subClasses/matematicControl.js')
 // 
-const model = new modelCilender(NAME_STACK);
-const viewer = new viewerCilender('#cylinder-capacity', '#calculation-result', model.getNames());
-const control = new controlCilender(model, viewer);
+const model = new matematicModel(NAME_STACK);
+const viewer = new matematicViewer('#matematical-calc', '#calculation-result', model.getNames());
+const control = new matematicControl(model, viewer);
 
 

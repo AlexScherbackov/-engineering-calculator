@@ -72,15 +72,6 @@ class Model extends eventEmitter{
  		}
  		
  		item.value = data;
-		switch (item.type){
-			case ('flag' || 'settings'):
-				this.updateSettings(name);
-				break;
-			case ('settings'):
-				this.updateFlags(name);
-				break;
-		
-		}
 		
 		//this.emmit('change', this._data);
 	
@@ -88,33 +79,7 @@ class Model extends eventEmitter{
 	}
 	
 	updateSettings(name){
-		const item = this.getItem(name);
-		const itemValue = item.regexp.split('');
-		const target = this._data['valid_characters'];
-		const targetValue = target.value.split('');
-		let result = '';
 		
-		if(item.value){
-			result = targetValue;
-			itemValue.forEach(item=>{
-				if(targetValue.indexOf(item) == -1){
-					result.splice(this._start++, 0, item);
-				}
-			});
-
-			result = result.join('');
-		} else{
-			itemValue.forEach(item=>{
-				if(targetValue.indexOf(item) != -1){
-					this._start = targetValue.indexOf(item);
-					targetValue.splice(targetValue.indexOf(item), 1);
-				}
-			});
-
-			result = targetValue.join('');
-		}
-
-		target.value = result;
 	}
 
 	updateFlags(name){

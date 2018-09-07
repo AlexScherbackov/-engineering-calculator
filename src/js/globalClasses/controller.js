@@ -11,7 +11,9 @@ class Control {
 		viewer.on('toggle', this.toggleCheckbox.bind(this));
 		viewer.on('select', this.changeSelect.bind(this));
 		viewer.on('settings', this.changeSettings.bind(this));
-		
+		viewer.on('pressSymbol', this.pressSymbol.bind(this));
+		viewer.on('callAction', this.callAction.bind(this));
+
 		viewer.show(model.data);
 
 		model.on('error', this.fixedError.bind(this));
@@ -44,7 +46,22 @@ class Control {
 		//Интерфейс для генерации результата прописывается в классе потомке
 	}
 
-	fixedError(obj){
+	fixedError(){
 		//Интерфейс для обработки ошибок прописывается в классе потомке
+	}
+
+	pressSymbol(name){
+		const item = this.model.getItem(name);
+		const logicResut = this.model.updateResult('calc-input', item.symbol, item.value);
+		
+		if(logicResut){
+			this.viewer.show(this.model.data);
+		}
+	}
+
+	callAction(name){
+		const item = this.model.getItem(name);
+		this.model[item.action]();
+		this.viewer.show(this.model.data);
 	}
 }

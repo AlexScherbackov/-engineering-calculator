@@ -2,75 +2,17 @@ extends pug/base
 
 append vars
 	- html.classList.push('page-index')
-	- radiusArr = ['мм', 'см', 'дм', 'м']
-	- areaArr = ['кв.мм', 'кв.см', 'кв.дм', 'кв.м']
+	- buttons = [ {id: 'save-number', name: 'save-number', text: 'ms', classList: 'calcsoft-form__btn--darc'},              {id: 'change-mat-sign', name: 'change-mat-sign', text: '+/-', classList: 'calcsoft-form__btn--darc'},               {id:'clean-end', name:'clean-end', text: '00->0', classList:'calcsoft-form__btn--darc calcsoft-form__btn--fz-14px'},{id: 'mat-sqrt', name: 'mat-sqrt', text: '&#8730;', classList: 'calcsoft-form__btn--darc'},                         {id: 'mat-pow-2', name: 'mat-pow-2', text: 'x<sup>2</sup>', classList: 'calcsoft-form__btn--darc'},                 {id: 'mat-pow-y', name: 'mat-pow-y', text: 'x<sup>y</sup>', classList: 'calcsoft-form__btn--darc'},                 {id: 'output-from-memory', name: 'output-from-memory', text: 'mr', classList: 'calcsoft-form__btn--darc'},          {id: 'number-seven', name: 'number-seven', text: '7', classList: 'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},                                                                                       {id: 'number-eight', name: 'number-eight', text: '8', classList: 'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},                                                                                       {id: 'number-nine', name: 'number-nine', text:'9', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},{id: 'division', name: 'division', text: '&#247;', classList: 'calcsoft-form__btn--darc'},                          {id: 'procent', name: 'procent', text: '&#37;', classList: 'calcsoft-form__btn--darc'},                             {id: 'clear-memory', name: 'clear-memory', text: 'mc', classList: 'calcsoft-form__btn--darc'},                      {id: 'number-four', name: 'number-four', text:'4', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},{id: 'number-five', name: 'number-five', text:'5', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},{id: 'number-six', name: 'number-six', text:'6', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},  {id: 'mat-mult', name: 'mat-mult', text: 'x', classList: 'calcsoft-form__btn--darc'},                               {id: 'mat-substr', name: 'mat-substr', text: '-', classList: 'calcsoft-form__btn--darc'},                           {id: 'clear-all', name: 'clear-all', text: 'ac', classList: 'calcsoft-form__btn--light-blue'},                      {id: 'number-one', name: 'number-one', text:'1', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},  {id: 'number-two', name: 'number-two', text:'2', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},  {id:'number-three', name:'number-three', text:'3', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},{id: 'mat-plus', name: 'mat-plus', text: '+', classList: 'calcsoft-form__btn--darc calcsoft-form__btn--2col'},      {id: 'mat-result', name: 'mat-result', text: '=', classList: 'calcsoft-form__btn--darc calcsoft-form__btn--2col'},  {id: 'clear-calc', name: 'clear-calc', text: 'c', classList: 'calcsoft-form__btn--light-blue'},                     {id: 'zero', name: 'zero', text:'0', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},              {id: 'two-zero', name: 'two-zero', text:'00', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},     {id: 'dot', name: 'dot', text:'.', classList:'calcsoft-form__btn--gray calcsoft-form__btn--c-blue'},]
+
 block content
 	
 	div.calcsoft-form.calcsoft
-		h2.calcsoft-form__title.calcsoft__title="Калькулятор объёма цилиндра"
-		form.calcsoft-form__main.mt-20#cylinder-capacity
-			div.calcsoft__wrapp.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-2-1fr
-				div
-					p.calcsoft__text.calcsoft__text--shadow.calcsoft__text--tac='Вычислять объём через'
-					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-10px-1fr.mt-10
-						input(type='radio' name='calc-type' data-type='radius-height') 
-						span.calcsoft__text='Радиус основания и высота'
-						input(type='radio' name='calc-type' data-type='diametr-height') 
-						span.calcsoft__text='Диаметр основания и высота'
-						input(type='radio' name='calc-type' data-type='area-height') 
-						span.calcsoft__text='Площадь основания и высота'
-					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10.no-visible.calc-type(name='radius-height')
-						span.calcsoft__text='Радиус r:'
-						input(type='text' name='radius') 
-						select.calcsoft__select(name='radius-units')
-							- var i = 1
-							each item in radiusArr
-								option(value = i++)=item
-
-						
-					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10.no-visible.calc-type(name='diametr-height')
-						span.calcsoft__text='Диаметр d:'
-						input(type='text' name='diametr') 
-						select.calcsoft__select(name='diametr-units')
-							- var i = 1
-							each item in radiusArr
-								option(value = i++)=item
-						
-					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10.no-visible.calc-type(name='area-height')
-						span.calcsoft__text='Площадь S:'
-						input(type='text' name='area') 
-						select.calcsoft__select(name='area-units')
-							- var i = 1
-							each item in areaArr
-								option(value = i++)=item
-
-						
-					div.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-80px-100px-60px.mt-10
-						span.calcsoft__text='Высота h:'
-						input(type='text' name='height') 
-						select.calcsoft__select(name='height-units')
-							- var i = 1
-							each item in radiusArr
-								option(value = i++)=item
-
-					p.calcsoft__text.mt-10
-						span='Округлить результат до '
-						input.calcsoft-form__select(name='round_of')
-						span=' знаков после запятой'
-					div.flex-row
-						input.calcsoft-form__btn.mt-10(type='submit' value='Рассчитать')
-
-				div.calcsoft__flex-row.calcsoft__flex-row--fxdc#calculation-result
-					p.calcsoft__text.calcsoft__text--shadow.calcsoft__text--tac='Результат вычислений'
-					p.calcsoft__text.mt-10.formula=''
-					div.calcsoft__svg-cont
-						svg#cilinder
-							ellipse(cy='20%' cx='50%' rx='50' ry='10' fill="transparent" stroke="rgb(0,0,0)" stroke-width='2')
-							line(x1='33%' y1='20%' x2='33%' y2='81%' stroke="rgb(0,0,0)" stroke-width='2')
-							line(x1='50%' y1='20%' x2='50%' y2='81%' stroke-width="5" style='stroke-dasharray:10 5; stroke: rgba(0, 0, 0, .5); stroke-width: 2')
-							line.decor.no-visible(x1='50%' y1='81%' x2='67%' y2='81%' stroke-width="5" style='stroke-dasharray:10 5; stroke: rgba(0, 0, 0, .5); stroke-width: 2')
-							line.decor.no-visible(x1='34%' y1='81%' x2='66%' y2='81%' stroke-width="5" style='stroke-dasharray:10 5; stroke: rgba(0, 0, 0, .5); stroke-width: 2')
-							line(x1='67%' y1='20%' x2='67%' y2='81%' stroke="rgb(0,0,0)" stroke-width='2')
-							ellipse#area(cy='81%' cx='50%' rx='50' ry='10' fill="transparent" stroke="rgb(0,0,0)" stroke-width='2')
-					p.calcsoft__text.mt-10.volume
+		h2.calcsoft-form__title.calcsoft__title="Математический калькулятор"
+		form.calcsoft-form__main.mt-20#matematical-calc
+			div.calcsoft-form__wrapper.calcsoft-form__wrapper--flex
+				input#calculation-result.matematical__main(type='text' name='calc-input' disabled="disabled")
+				div.calcsoft-form__wrapper.calcsoft-form__wrapper--grid.calcsoft-form__wrapper--grid-r6-po-50px.mt-10
+					each btn in buttons
+						button(id=btn.id name=btn.name class='calcsoft-form__btn '+btn.classList)!=btn.text
 					
+			

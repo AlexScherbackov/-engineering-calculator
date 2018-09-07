@@ -28,6 +28,14 @@ class Viewer extends eventEmitter {
 							item.addEventListener('change', this.handleRadio.bind(this));
 						});
 						break;
+					case 'symbol':
+						this[key] = this.form.querySelector(`[name=${key}]`);
+						this[key].addEventListener('click', this.handleSymbol.bind(this));
+						break;
+					case 'action':
+						this[key] = this.form.querySelector(`[name=${key}]`);
+						this[key].addEventListener('click', this.handleAction.bind(this));
+						break;
 				}	
 			}) 
 						
@@ -54,6 +62,7 @@ class Viewer extends eventEmitter {
 				case 'radio':
 					this.setRadio(item, data[item].value)
 					break;
+
 			}
 		})
 	}
@@ -145,13 +154,23 @@ class Viewer extends eventEmitter {
 		this.emmit('radioToggle', {name, value});
 
 	}
-
+	//Метод нажатия на символ
+	handleSymbol(e){
+		e.preventDefault();
+		this.emmit('pressSymbol',e.target.name);
+	}
+	//Метод нажатия на кнопку действия
+	handleAction(e){
+		e.preventDefault();
+		this.emmit('callAction',e.target.name);
+	}
 	//Метод отправляющий формы
 	handleSubmit(e){
 		e.preventDefault();
-
 		//инициируем событие генерации паролей
 		this.emmit('generate');
 	}
+
+
 
 }
