@@ -141,6 +141,16 @@
             grid-template-columns: repeat(6, 60px);
             grid-template-rows: repeat(5, 60px);
             grid-auto-flow: row;
+            @include max-screen(480px){
+                grid-template-columns: repeat(6, 50px);
+                grid-template-rows: repeat(5, 50px);
+                grid-gap: 10px;
+            }
+            @include max-screen(390px){
+                grid-template-columns: repeat(6, 40px);
+                grid-template-rows: repeat(5, 40px);
+                grid-gap: 10px;
+            }
         }
         &--flex{
             display: flex;
@@ -148,7 +158,12 @@
             align-items: center;
         }
     }
-
+    &__remember-number{
+        position: absolute;
+        top: -14px;
+        left: 0;
+        font-size: 12px;
+    }
     &__select{
         width: 45px;
         height: 20px;
@@ -218,6 +233,9 @@
         padding: 4px;
         outline: none;
         transition: background-color 0.4s, color 0.4s;
+        @include max-screen(480px){
+            font-size: 16px!important;
+        }
         &:hover{
             color: $submit-text-cl;
         }

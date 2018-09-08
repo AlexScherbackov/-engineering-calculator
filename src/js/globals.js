@@ -161,73 +161,43 @@ const NAME_STACK = [
 },
 {
 	name: 'mat-plus',
-	type: 'symbol',
-	symbol:'+',
-	value: function(data){
-		return `${data} ${this.symbol} `;
-	}
+	type: 'action',
+	action:'plus'
 },
 {
 	name: 'mat-mult',
-	type: 'symbol',
-	symbol:'*',
-	value: function(data){
-		return `${data} ${this.symbol} `;
-	}
+	type: 'action',
+	action:'mult'
 },
 {
 	name: 'division',
-	type: 'symbol',
-	symbol:'÷',
-	value: function(data){
-		return `${data} ${this.symbol} `;
-	}
+	type: 'action',
+	action:'div'
 },
 {
 	name: 'mat-substr',
-	type: 'symbol',
-	symbol:'-',
-	value: function(data){
-		return `${data} ${this.symbol} `;
-	}
+	type: 'action',
+	action:'minus'
 },
 {
 	name: 'procent',
-	type: 'symbol',
-	symbol:'%',
-	value: function(data){
-		return `${data} ${this.symbol} `;
-	}
+	type: 'action',
+	action: 'procentCalc'
 },
 {
 	name: 'mat-pow-2',
-	type: 'symbol',
-	symbol:'^ 2',
-	value: function(data){
-		return `${data} ${this.symbol} `;
-	}
+	type: 'action',
+	action: 'matPow2'
 },
 {
 	name: 'mat-pow-y',
-	type: 'symbol',
-	symbol:'^',
-	value: function(data){
-		return `${data} ${this.symbol} `;
-	}
+	type: 'action',
+	action:'matPowY'
 },
 {
 	name: 'change-mat-sign',
-	type: 'symbol',
-
-	value: function(data){
-		if(+data > 0){
-			return '-'+data;
-		} else if(+data < 0){
-			return -(+data);
-		} else{
-			return data;
-		}
-	}
+	type: 'action',
+	action: 'changeMatSign'
 },
 {
 	name: 'clean-end',
@@ -236,18 +206,8 @@ const NAME_STACK = [
 },
 {
 	name: 'mat-sqrt',
-	type: 'symbol',
-	symbol:'√',
-	value: function(number){
-
-		const data = number.toString();
-		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
-			return this.symbol;
-		} else{
-			return `${data} ${this.symbol} `;
-		}
-		return ;
-	}
+	type: 'action',
+	action: 'matSqrt'
 },
 {
 	name: 'save-number',

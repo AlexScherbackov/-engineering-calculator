@@ -1,11 +1,10 @@
-//Класс контроллер
+// Класс контроллер
 //
 class Control {
-	constructor(model, viewer){
-		
+	constructor(model, viewer) {
 		this.model = model;
 		this.viewer = viewer;
-		
+
 		viewer.on('generate', this.generateResult.bind(this));
 		viewer.on('radioToggle', this.toggleRadio.bind(this));
 		viewer.on('toggle', this.toggleCheckbox.bind(this));
@@ -19,49 +18,54 @@ class Control {
 		model.on('error', this.fixedError.bind(this));
 	}
 
-	toggleRadio(obj){
+	toggleRadio(obj) {
 		this.model.updateData(obj.name, obj.value);
 		this.viewer.show(model.data);
 	}
 
-	toggleCheckbox(obj){
+	toggleCheckbox(obj) {
 		this.model.updateData(obj.name, obj.checked);
 		this.viewer.show(model.data);
 	}
 
-	changeSelect(obj){
+	changeSelect(obj) {
 		this.model.updateData(obj.name, obj.value);
 		this.viewer.show(model.data);
 	}
 
-	changeSettings(obj){
+	changeSettings(obj) {
 		const logicResut = this.model.updateData(obj.name, obj.value);
-		if(logicResut){
+
+		if (logicResut) {
 			this.viewer.show(model.data);
 		}
-		
 	}
 
-	generateResult(){
-		//Интерфейс для генерации результата прописывается в классе потомке
+	generateResult() {
+		// Интерфейс для генерации результата прописывается в классе потомке
 	}
 
-	fixedError(){
-		//Интерфейс для обработки ошибок прописывается в классе потомке
+	fixedError() {
+		// Интерфейс для обработки ошибок прописывается в классе потомке
 	}
 
-	pressSymbol(name){
+	//Добавление символа ко вводу
+	pressSymbol(name) {
 		const item = this.model.getItem(name);
 		const logicResut = this.model.updateResult('calc-input', item.symbol, item.value);
-		
-		if(logicResut){
+
+		if (logicResut) {
 			this.viewer.show(this.model.data);
 		}
 	}
 
-	callAction(name){
+	//вызов действия над символом
+	callAction(name) {
 		const item = this.model.getItem(name);
-		this.model[item.action]();
-		this.viewer.show(this.model.data);
+		
+		const logicResut = this.model[item.action]();
+		if (logicResut) {
+			this.viewer.show(this.model.data);
+		}
 	}
 }
