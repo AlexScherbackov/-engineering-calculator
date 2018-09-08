@@ -156,7 +156,13 @@ const NAME_STACK = [
 	symbol:'.',
 	value: function(number){
 		const data = number.toString();
-		return `${data}${this.symbol}`;
+		
+		if(data.indexOf('.') ==-1){
+			return `${data}${this.symbol}`;
+		} else{
+			return number;
+		}
+		
 	}
 },
 {
