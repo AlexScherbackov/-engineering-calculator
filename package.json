@@ -62,10 +62,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexScherbackov/gulpForMultiplePageWebsite.git"
+    "url": ""
   },
   "bugs": {
-    "url": "https://github.com/AlexScherbackov/gulpForMultiplePageWebsite/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/AlexScherbackov/gulpForMultiplePageWebsite#readme"
+  "homepage": ""
 }

@@ -19,4 +19,13 @@ class matematicViewer extends Viewer {
 
 		$document.querySelector(ID_TARGET).textContent = value;
 	}
+
+	showError(){
+		alert('Введённая формула содержит синтаксические ошибки! Расчёт невозможен.');
+	}
+
+	showHint(value){
+		const ID_TARGET = '#hint';
+		$document.querySelector(ID_TARGET).textContent = value;
+	}
 }

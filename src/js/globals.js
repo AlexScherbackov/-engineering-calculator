@@ -16,6 +16,12 @@ const NAME_STACK = [
 	}
 },
 {
+	name: 'settings',
+	type: 'radio',
+	default: 0,
+	value: 0
+},
+{
 	name: 'number-one',
 	type: 'symbol',
 	symbol: 1,
@@ -142,7 +148,7 @@ const NAME_STACK = [
 	}
 },
 {
-	name: 'two-zero',
+	name: 'duble-zero',
 	type: 'symbol',
 	symbol:'00',
 	value: function(number){
@@ -167,38 +173,361 @@ const NAME_STACK = [
 },
 {
 	name: 'mat-plus',
-	type: 'action',
-	action:'plus'
+	type: 'symbol',
+	symbol:' + ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
 },
 {
 	name: 'mat-mult',
-	type: 'action',
-	action:'mult'
+	type: 'symbol',
+	symbol:' * ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
 },
 {
 	name: 'division',
-	type: 'action',
-	action:'div'
+	type: 'symbol',
+	symbol:' / ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
 },
 {
 	name: 'mat-substr',
-	type: 'action',
-	action:'minus'
+	type: 'symbol',
+	symbol:' - ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
+},
+{
+	name: 'comma',
+	type: 'symbol',
+	symbol:' , ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
 },
 {
 	name: 'procent',
 	type: 'action',
-	action: 'procentCalc'
+	symbol:' % ',
+	action: 'procentCalc',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
 },
 {
 	name: 'mat-pow-2',
-	type: 'action',
-	action: 'matPow2'
+	type: 'symbol',
+	symbol:' ^ 2 ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
+},
+{
+	name: 'mat-pow-3',
+	type: 'symbol',
+	symbol:' ^ 3 ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
 },
 {
 	name: 'mat-pow-y',
+	type: 'symbol',
+	symbol:' ^ ',
+	value: function(number){
+		const data = number.toString();
+		return data + this.symbol;
+	}
+},
+{
+	name: 'sinus',
 	type: 'action',
-	action:'matPowY'
+	action: 'sinus',
+	symbol:' sin( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'arcsinus',
+	type: 'action',
+	action: 'arcsinus',
+	symbol:' arcsin( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'cosinus',
+	type: 'action',
+	action: 'cosinus',
+	symbol:' cos( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'arccosinus',
+	type: 'action',
+	action: 'arccosinus',
+	symbol:' arccos( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'tangens',
+	type: 'action',
+	action: 'tangens',
+	symbol:' tg( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'arctangens',
+	type: 'action',
+	action: 'arctangens',
+	symbol:' arctg( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'cotangens',
+	type: 'action',
+	action: 'cotangens',
+	symbol:' cot( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'arccotangens',
+	type:  'action',
+	action: 'arccotangens',
+	symbol:' arcctg( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'left-delim',
+	type: 'symbol',
+	symbol:' ( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'right-delim',
+	type: 'symbol',
+	symbol:' ) ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'eiler-const',
+	type: 'action',
+	symbol:' e ',
+	action: 'eilerConst',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'pi-const',
+	type: 'action',
+	symbol: ' π ',
+	action: 'piConst',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'mat-sqrt',
+	type: 'action',
+	symbol:' √( ',
+	action: 'matSqrt',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'mat-cbrt',
+	type: 'action',
+	symbol:' ∛( ',
+	action: 'matCbrt',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'mat-y-sqrt',
+	type: 'action',
+	symbol:' √( ',
+	action: 'matYsqrt',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'natural-logarifm',
+	type: 'action',
+	symbol:' Ln( ',
+	action: 'matNaturalLogarifm',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'logarifm-ten',
+	type: 'action',
+	symbol:' Lg( ',
+	action: 'matTenLogarifm',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'logarifm',
+	type: 'action',
+	symbol:' log( ',
+	action: 'matLogarifm',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'abs',
+	type: 'symbol',
+	symbol:' abs( ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
+},
+{
+	name: 'factorial',
+	type: 'symbol',
+	symbol:'! ',
+	value: function(number){
+		const data = number.toString();
+		if((data.length==1)&&(+data.charAt(data.length-1)==0)){
+			return this.symbol;
+		} else{
+			return data + this.symbol;
+		}
+	}
 },
 {
 	name: 'change-mat-sign',
@@ -209,11 +538,6 @@ const NAME_STACK = [
 	name: 'clean-end',
 	type: 'action',
 	action: 'deleteLastSymbol'
-},
-{
-	name: 'mat-sqrt',
-	type: 'action',
-	action: 'matSqrt'
 },
 {
 	name: 'save-number',

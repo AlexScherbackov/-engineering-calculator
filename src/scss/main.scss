@@ -10,7 +10,7 @@
 
 
 .calcsoft{
-    max-width: 480px;
+    max-width: 640px;
     box-sizing: border-box;
     margin: 50px auto;
     padding: 20px;
@@ -21,6 +21,13 @@
     color: #6C6969;
     font-size: 14px;
     position: relative;
+    @include max-screen(670px){
+        max-width: 420px;
+    }
+    @include max-screen(480px){
+        max-width: 320px;
+        padding: 10px;
+    }
     &__wrapp{
         padding: 10px;
         border: 1px solid #B5B6B6;
@@ -135,22 +142,31 @@
     	position: relative;
     	&--grid{
             display: grid;
-            grid-gap: 15px;
+            grid-column-gap: 10px;
+            grid-row-gap: 15px;
         }
-        &--grid-r6-po-50px{
-            grid-template-columns: repeat(6, 60px);
-            grid-template-rows: repeat(5, 60px);
-            grid-auto-flow: row;
+        &--grid-area-template{
+            grid-template-columns: repeat(2, minmax(200px, 1fr)) 140px;
+            grid-template-areas: 
+                'settings . .'
+                'logical logical logical'
+                'algebra numeric math';
+            justify-self: center;
+            @include max-screen(670px){
+                grid-template-columns: 140px minmax(100px, 1fr);
+                grid-template-areas: 
+                    'settings .'
+                    'logical numeric'
+                    'math algebra';
+            }
             @include max-screen(480px){
-                grid-template-columns: repeat(6, 50px);
-                grid-template-rows: repeat(5, 50px);
-                grid-gap: 10px;
+                grid-template-columns: 110px minmax(100px, 1fr);
             }
-            @include max-screen(390px){
-                grid-template-columns: repeat(6, 40px);
-                grid-template-rows: repeat(5, 40px);
-                grid-gap: 10px;
-            }
+        }
+        &--row-gap-10-w670{
+            @include max-screen(670px){
+               grid-row-gap: 10px; 
+            }            
         }
         &--flex{
             display: flex;
@@ -158,11 +174,23 @@
             align-items: center;
         }
     }
-    &__remember-number{
+    &__details{
         position: absolute;
         top: -14px;
         left: 0;
         font-size: 12px;
+        
+        &--right{
+            right: 0;
+            left: 57%;
+            @include max-screen(670px){
+                left: 6px;
+            }
+        }
+
+        &--bottom-fix{
+            top: 60px;
+        }
     }
     &__select{
         width: 45px;
@@ -219,22 +247,28 @@
         color: $color-black;
     }
     &__btn{
-        max-width: 60px;
-        width: 100%;
-        max-height: 60px;
-        height: 100%;
-        display: block;
+        width: 65px;
+        height: 65px;
+         display: block;
         border: 1px solid $color-shadow;
-        font-size: 20px;
+        font-size: 14px;
         line-height: 2;
-        text-transform: uppercase;
         cursor: pointer;
         color: $color-white;
         padding: 4px;
         outline: none;
         transition: background-color 0.4s, color 0.4s;
         @include max-screen(480px){
-            font-size: 16px!important;
+            width: 50px;
+        }
+        &--h40{
+            height: 40px;
+        }
+        &--h40-w670{
+            @include max-screen(670px){
+               height: 40px; 
+               line-height: 1;
+            }
         }
         &:hover{
             color: $submit-text-cl;
@@ -251,7 +285,7 @@
         }
         &--2col{
             grid-row-end: span 2;
-            max-height: 100%;
+            height: 100%;
         }
         @each $modificator, $color in $btn-colors{
             &--#{$modificator}{
@@ -264,6 +298,42 @@
                 }
             }
         }
+    }
+    &__btn-cont{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        &--2fr{
+            grid-template-columns: repeat(2, 1fr);
+        }
+        &--jsfs{
+           justify-self: start; 
+           align-self: start;
+        }
+    }
+    &__btn-cont-logic{
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-gap: 10px;
+        justify-self: start;
+        @include max-screen(670px){
+             grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    &__algebra{
+        grid-area: algebra;
+    }
+    &__logical{
+        grid-area: logical;
+    }
+    &__settings{
+        grid-area: settings;
+    }
+    &__numeric{
+        grid-area: numeric;
+    }
+    &__math{
+        grid-area: math;
     }
 }
 
@@ -362,6 +432,12 @@
     margin-left: 10px;
 }
 
+.mt-25-w670{
+    @include max-screen(670px){
+        margin-top: 30px;
+    }
+}
+
 .on-error{
 	border: 1px solid red;
 }
@@ -381,6 +457,10 @@
     align-items: center;
 }
 
+.flex-row--jcfs{
+    justify-content: flex-start;
+}
+
 .on-error{
-    border: 1px solid red;
+    border: 1px solid red !important;
 }

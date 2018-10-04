@@ -1,0 +1,15 @@
+{
+  "name": "mathjs",
+  "homepage": "https://github.com/josdejong/mathjs",
+  "version": "5.1.2",
+  "_release": "5.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.1.2",
+    "commit": "8cab3f2bb02e53beb48506e02ac773fce73f1a99"
+  },
+  "_source": "https://github.com/josdejong/mathjs.git",
+  "_target": "^5.1.2",
+  "_originalSource": "mathjs",
+  "_direct": true
+}

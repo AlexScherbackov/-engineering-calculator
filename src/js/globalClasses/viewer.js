@@ -42,6 +42,7 @@ class Viewer extends eventEmitter {
 
 	// Обновление представления
 	show(data) {
+		
 		Object.keys(data).forEach((item) => {
 			switch (data[item].type) {
 				case 'flag':
@@ -83,7 +84,6 @@ class Viewer extends eventEmitter {
 	// Метод для простановки радиокнопок
 	setRadio(item, value) {
 		const radio = this[item];
-
 		radio[value].checked = true;
 	}
 
@@ -151,7 +151,7 @@ class Viewer extends eventEmitter {
 				 break;
 			}
 		}
-
+		
 		// Обновляем Модель
 		this.emmit('radioToggle', {name,
 			value});
@@ -169,7 +169,6 @@ class Viewer extends eventEmitter {
 	// Метод отправляющий формы
 	handleSubmit(e) {
 		e.preventDefault();
-		// инициируем событие генерации паролей
 		this.emmit('generate');
 	}
 }
